@@ -1,8 +1,11 @@
 FROM java:8u72-jdk
 
-RUN wget http://www-eu.apache.org/dist/incubator/tinkerpop/3.2.0-incubating/apache-gremlin-console-3.2.0-incubating-bin.zip 
-RUN unzip apache-gremlin-console-3.2.0-incubating-bin.zip
+ENV GREMLIN_VERSION 3.2.0-incubating
 
-WORKDIR apache-gremlin-console-3.2.0-incubating
+RUN wget http://mirrors.ukfast.co.uk/sites/ftp.apache.org/incubator/tinkerpop/${GREMLIN_VERSION}/apache-gremlin-console-${GREMLIN_VERSION}-bin.zip \
+ && unzip apache-gremlin-console-${GREMLIN_VERSION}-bin.zip \
+ && mv apache-gremlin-console-${GREMLIN_VERSION} gremlin
 
-CMD ["bin/gremlin.sh"]
+WORKDIR gremlin
+
+CMD bin/gremlin.sh
